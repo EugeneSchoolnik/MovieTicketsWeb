@@ -1,5 +1,20 @@
-<script setup lang="ts"></script>
+<script lang="ts">
+import s from "./app.module.scss";
 
-<template></template>
+export default {
+  name: "app",
+  data() {
+    return {
+      s,
+    };
+  },
+};
+</script>
 
-<style scoped></style>
+<template>
+  <div :class="s.app"></div>
+</template>
+
+<style lang="scss">
+@import url("app.module.scss");
+</style>

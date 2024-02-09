@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&family=Monoton&display=swap");
 
 * {
   margin: 0;
@@ -6,7 +6,28 @@
   border: none;
   outline: none;
   box-sizing: border-box;
+  text-decoration: none;
   font-family: "Lato", sans-serif;
   font-size: $fs;
   color: #fff;
+}
+
+.btn {
+  background: $blue;
+  padding: 0.5rem 1rem;
+  border-radius: 0.2rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  transition: 150ms;
+  &:hover {
+    color: $orange;
+  }
+  &.primary {
+    background: $gray;
+    &:hover {
+      background: $orange;
+      color: #fff;
+    }
+  }
 }

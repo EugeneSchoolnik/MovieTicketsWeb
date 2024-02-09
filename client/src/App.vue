@@ -1,8 +1,12 @@
 <script lang="ts">
 import s from "./app.module.scss";
+import Header from "./components/Header/Header.vue";
+import Footer from "./components/Footer/Footer.vue";
+import Home from "./pages/Home/Home.vue";
 
 export default {
   name: "app",
+  components: { Header, Footer, Home },
   data() {
     return {
       s,
@@ -12,9 +16,11 @@ export default {
 </script>
 
 <template>
-  <div :class="s.app"></div>
+  <div :class="s.app">
+    <Header />
+    <Home />
+    <Footer />
+  </div>
 </template>
 
-<style lang="scss">
-@import url("app.module.scss");
-</style>
+<style src="./app.module.scss" lang="scss"></style>

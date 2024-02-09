@@ -3,6 +3,11 @@
   background: linear-gradient($gray, $darkGray);
   height: max-content;
   padding: 1rem;
+  .loginLink {
+    position: absolute;
+    right: 1rem;
+    top: 1rem;
+  }
   .title {
     display: flex;
     align-items: center;

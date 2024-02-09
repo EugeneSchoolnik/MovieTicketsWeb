@@ -1,11 +1,12 @@
 <script lang="ts">
 import s from "./home.module.scss";
+import Header from "../../components/Header/Header.vue";
 import { benefits } from "./benefits";
 import Slider from "./Slider.vue";
 
 export default {
   name: "home",
-  components: { Slider },
+  components: { Slider, Header },
   data() {
     return {
       s,
@@ -15,6 +16,7 @@ export default {
 };
 </script>
 <template>
+  <Header />
   <div :class="s.home">
     <Slider />
     <div :class="s.callToAction">

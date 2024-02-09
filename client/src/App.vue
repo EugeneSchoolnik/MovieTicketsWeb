@@ -18,7 +18,9 @@ export default {
 <template>
   <div :class="s.app">
     <Header />
-    <Home />
+    <main :class="s.main">
+      <RouterView />
+    </main>
     <Footer />
   </div>
 </template>

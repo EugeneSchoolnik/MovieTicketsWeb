@@ -13,4 +13,9 @@
     background: $orange;
     border-radius: 5px;
   }
+  .main {
+    width: 100%;
+    display: flex;
+    flex: 1;
+  }
 }

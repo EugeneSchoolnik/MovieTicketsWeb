@@ -3,6 +3,7 @@ import Home from "./pages/Home/Home.vue";
 import Auth from "./pages/Auth/Auth.vue";
 import RestorePass from "./pages/RestorePass/RestorePass.vue";
 import Profile from "./pages/Profile/Profile.vue";
+import Movies from "./pages/Movies/Movies.vue";
 
 const router = createRouter({
   history: createWebHistory(),
@@ -12,6 +13,7 @@ const router = createRouter({
     { path: "/login", component: Auth },
     { path: "/restorepass", component: RestorePass },
     { path: "/profile", component: Profile },
+    { path: "/movies", component: Movies },
   ],
 });
 

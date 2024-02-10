@@ -1,15 +1,16 @@
 <script lang="ts">
 import s from "./profile.module.scss";
 import Input from "../../components/Input/Input.vue";
+import Header from "../../components/Header/Header.vue";
 
 export default {
   name: "profile",
-  components: { Input },
+  components: { Input, Header },
   data() {
     return {
       showPopup: {
         changePass: false,
-        orderDetails: true,
+        orderDetails: false,
       },
       s,
     };
@@ -23,6 +24,7 @@ export default {
 };
 </script>
 <template>
+  <Header />
   <div :class="s.profile">
     <div :class="s.control">
       <div :class="s.block">

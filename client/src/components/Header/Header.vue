@@ -21,10 +21,10 @@ export default {
 <template>
   <header :class="s.header">
     <RouterLink to="/login" :class="`${s.loginLink} btn`">Log in</RouterLink>
-    <div :class="s.title">
+    <RouterLink to="/" :class="s.title">
       <img src="../../assets/img/logo.jpg" alt="logo" />
       <h1>FilmFlicks</h1>
-    </div>
+    </RouterLink>
     <div :class="s.description">
       Welcome to the ultimate movie buff’s paradise! Dive into the sea of the latest blockbusters, timeless classics,
       and everything in-between. Getting your movie tickets has never been this exciting.

@@ -4,6 +4,7 @@ import Auth from "./pages/Auth/Auth.vue";
 import RestorePass from "./pages/RestorePass/RestorePass.vue";
 import Profile from "./pages/Profile/Profile.vue";
 import Movies from "./pages/Movies/Movies.vue";
+import Manage from "./pages/Admin/Manage.vue";
 
 const router = createRouter({
   history: createWebHistory(),
@@ -14,6 +15,7 @@ const router = createRouter({
     { path: "/restorepass", component: RestorePass },
     { path: "/profile", component: Profile },
     { path: "/movies", component: Movies },
+    { path: "/admin", component: Manage },
   ],
 });
 

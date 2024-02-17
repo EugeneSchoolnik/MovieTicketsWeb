@@ -1,6 +1,8 @@
 <script lang="ts">
 import s from "./auth.module.scss";
 import Input from "../../components/Input/Input.vue";
+import { errors } from "../Admin/MovieForm/checkForm";
+import server from "../../utils/axiosInstance";
 
 export default {
   name: "auth",
@@ -9,9 +11,16 @@ export default {
     return {
       isLogin: true,
       user: {
-        email: "",
-        password: "",
+        email: {
+          value: "",
+          error: "",
+        },
+        password: {
+          value: "",
+          error: "",
+        },
       },
+      serverError: "",
       s,
     };
   },
@@ -22,11 +31,30 @@ export default {
     onChangeAction() {
       setTimeout(this.getAction);
     },
+    onSumbit() {
+      const [email, password] = [this.user.email, this.user.password];
+      (email.error = ""), (password.error = "");
+      if (!email.value) return (this.user.email.error = errors.empty);
+      if (!password.value) return (this.user.password.error = errors.empty);
+
+      server
+        .post(`/auth/${this.isLogin ? "login" : "register"}`, {
+          email: email.value,
+          password: password.value,
+        })
+        .then(({ data }) => {
+          this.serverError = "";
+          console.log(data);
+        })
+        .catch(({ response }) => {
+          this.serverError = response.data.message;
+        });
+    },
   },
   beforeMount() {
     this.getAction();
     const email = (this.$route.query.email || "") as string;
-    email && (this.user.email = email);
+    email && (this.user.email.value = email);
   },
 };
 </script>
@@ -37,9 +65,10 @@ export default {
       <h1>FilmFlicks</h1>
     </RouterLink>
     <h1>{{ isLogin ? "Authorization" : "Registration" }}</h1>
-    <form>
-      <Input label="Email" v-model="user.email" :value="user.email" />
-      <Input label="Password" v-model="user.password" />
+    <form @submit.prevent="onSumbit">
+      <Input label="Email" v-model="user.email.value" :value="user.email.value" :error="user.email.error" />
+      <Input label="Password" v-model="user.password.value" :error="user.password.error" />
+      <span :class="s.serverError">{{ serverError }}</span>
       <button class="btn">{{ isLogin ? "Log in" : "Register" }}</button>
       <p v-if="isLogin">
         You don't have an account yet? <RouterLink @click="onChangeAction()" to="/register">Sign up</RouterLink>

@@ -20,7 +20,7 @@ export const login: Handler = async (req, res) => {
   if (!compareSync(password, hash)) return res.status(401).json(resp(false, "Incorrect password"));
 
   setToken([userId, hash], res);
-  res.json({ userId, email });
+  res.json(resp(true, { userId, email }));
 };
 // REGISTER
 export const register: Handler = async (req, res) => {

@@ -1,0 +1,61 @@
+.movieItem {
+  position: relative;
+  display: flex;
+  justify-content: space-around;
+  background: $light;
+  margin-top: 4px;
+  .info {
+    display: flex;
+    flex-direction: column;
+    padding-top: 1.5rem;
+    h2 {
+      margin-bottom: 0.5rem;
+      font-size: 1.1rem;
+    }
+    span {
+      font-size: 1.1rem;
+      margin-bottom: 0.5rem;
+    }
+    strong {
+      color: $orange;
+    }
+  }
+  img {
+    width: 10rem;
+    height: 14.8rem;
+  }
+  .details {
+    font-size: 1.2rem;
+    padding-top: 1.5rem;
+    b {
+      color: $success;
+      font-size: 1.2rem;
+    }
+  }
+  .adminBlock {
+    position: absolute;
+    right: 1.5rem;
+    bottom: 1.5rem;
+    display: flex;
+    gap: 0.5rem;
+    i {
+      width: 2rem;
+      height: 2rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 1.2rem;
+      padding: 0.2rem;
+      background: $dark;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: 150ms;
+      &:first-child:hover {
+        color: $lightBlue;
+      }
+      &:hover {
+        color: $danger;
+      }
+    }
+  }
+}

@@ -1,0 +1,85 @@
+.home {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  .sliderWrapper {
+    width: 85%;
+    margin: 1.5rem 0;
+    h2 {
+      text-align: center;
+      font-size: 2rem;
+    }
+    .slider {
+      height: 25rem;
+      margin-top: 0.5rem;
+      div:nth-child(2) {
+        width: 100%;
+        height: 100%;
+        li {
+          display: flex;
+          justify-content: center;
+          div {
+            border-radius: 10px;
+            width: 16.8rem;
+            height: 24rem;
+            margin: 0.5rem;
+            background-image: var(--image);
+            background-size: 105%;
+            background-repeat: no-repeat;
+            background-position: center;
+          }
+        }
+      }
+      & > ul {
+        display: none;
+      }
+    }
+  }
+  .callToAction {
+    width: 100%;
+    padding: 2rem;
+    background: $dark;
+    h2 {
+      font-size: 2rem;
+      font-family: "Monoton", sans-serif;
+      font-weight: normal;
+    }
+    .btns {
+      margin-top: 0.5rem;
+      button:first-child {
+        margin-right: 0.5rem;
+      }
+    }
+  }
+  .benefits {
+    width: 100%;
+    background: linear-gradient($darkGray, $dark2);
+    margin-top: 2rem;
+    padding: 2rem;
+    h2 {
+      font-size: 2rem;
+      font-family: "Monoton", sans-serif;
+      font-weight: normal;
+      margin-bottom: 1rem;
+    }
+    .items {
+      display: flex;
+      justify-content: space-around;
+      flex-wrap: wrap;
+      .item {
+        width: 18rem;
+        padding: 2rem;
+        margin-bottom: 1rem;
+        h4 {
+          font-size: 1.1rem;
+          margin-bottom: 0.5rem;
+          color: $lightBlue;
+        }
+        span {
+          font-size: 0.9rem;
+        }
+      }
+    }
+  }
+}

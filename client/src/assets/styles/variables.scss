@@ -1,0 +1,21 @@
+$appWitdh: 1200;
+$minAppWidth: 320px;
+$fs: calc(12 * 1px + (16 - 12) / 0.7 * ((100vw - $minAppWidth) / $appWitdh));
+
+// colors
+$success: rgb(45, 240, 45);
+$warning: rgb(235, 235, 35);
+$danger: rgb(240, 50, 50);
+
+$blue: rgb(35, 40, 240);
+$darkBlue: rgb(10, 25, 200);
+$lightBlue: rgb(48, 96, 255);
+$orange: rgb(255, 123, 14);
+
+$gray: #333;
+$darkGray: #222;
+$lightGray: #666;
+
+$dark: #0003;
+$dark2: rgba(0, 0, 0, 0.5);
+$light: #fff2;

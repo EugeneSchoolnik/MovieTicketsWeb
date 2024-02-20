@@ -1,0 +1,22 @@
+.app {
+  height: 100vh;
+  background: linear-gradient(100deg, $darkBlue 0%, $orange 50%, $darkBlue 100%);
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  overflow-y: auto;
+  &::-webkit-scrollbar {
+    width: 10px;
+    background: $darkGray;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: $orange;
+    border-radius: 5px;
+  }
+  .main {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+  }
+}

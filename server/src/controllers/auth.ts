@@ -45,6 +45,10 @@ export const getMe: Handler = async (req, res) => {
 
   res.json(resp(true, { userId: req.userId, email }));
 };
+// LOGOUT
+export const logout: Handler = async (req, res) => {
+  res.cookie("authorization", "", { httpOnly: true, maxAge: 0 }).send();
+};
 // AUTH
 export const auth: Handler = async (req, res, next) => {
   try {

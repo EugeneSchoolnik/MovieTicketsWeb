@@ -44,7 +44,6 @@ export default {
         })
         .then(({ data }) => {
           this.serverError = "";
-          console.log(data);
         })
         .catch(({ response }) => {
           this.serverError = response.data.message;

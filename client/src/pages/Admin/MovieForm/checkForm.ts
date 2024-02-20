@@ -15,7 +15,7 @@ export type form = {
   };
 };
 
-const errors = {
+export const errors = {
   empty: "The field can't be empty",
   outOfRange(min: number, max: number) {
     return `The value must be from ${min} to ${max}`;

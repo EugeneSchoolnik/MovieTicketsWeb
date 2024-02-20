@@ -2,12 +2,14 @@
 import s from "./profile.module.scss";
 import Input from "../../components/Input/Input.vue";
 import Header from "../../components/Header/Header.vue";
+import server from "../../utils/axiosInstance";
 
 export default {
   name: "profile",
   components: { Input, Header },
   data() {
     return {
+      user: this.$store.state.user,
       showPopup: {
         changePass: false,
         orderDetails: false,
@@ -20,6 +22,19 @@ export default {
       this.showPopup.changePass = false;
       this.showPopup.orderDetails = false;
     },
+    logout() {
+      server.get("/auth/logout");
+      this.$store.commit("user.logout");
+      this.$router.push("/");
+    },
+  },
+  mounted() {
+    const redirect = () => {
+      if (this.$store.state.user.loaded) {
+        if (!this.$store.state.user.id) this.$router.push("/login");
+      } else setTimeout(redirect, 100);
+    };
+    redirect();
   },
 };
 </script>
@@ -28,10 +43,10 @@ export default {
   <div :class="s.profile">
     <div :class="s.control">
       <div :class="s.block">
-        <span title="user@mail.com">user@mail.com</span>
+        <span :title="user.email">{{ user.email }}</span>
         <button class="btn primary" @click="showPopup.changePass = true">Change password</button>
       </div>
-      <button class="btn">Log out</button>
+      <button class="btn" @click="logout">Log out</button>
     </div>
     <div :class="s.orders">
       <h2>Orders</h2>

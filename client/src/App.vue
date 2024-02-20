@@ -1,6 +1,7 @@
 <script lang="ts">
 import s from "./app.module.scss";
 import Footer from "./components/Footer/Footer.vue";
+import server from "./utils/axiosInstance";
 
 export default {
   name: "app",
@@ -9,6 +10,18 @@ export default {
     return {
       s,
     };
+  },
+  beforeMount() {
+    server
+      .get("/auth/me")
+      .then(({ data }) => {
+        this.$store.commit("user.setUser", data.data);
+        this.$store.commit("user.loaded");
+      })
+      .catch(e => {
+        this.$store.commit("user.loaded");
+        console.log(e);
+      });
   },
 };
 </script>

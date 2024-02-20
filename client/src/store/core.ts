@@ -18,9 +18,8 @@ export const createSlice = <T>(slice: SliceProps<T>): sliceReturn<T> => {
   const actions = {};
 
   for (const k of Object.keys(reducers)) {
-    reducers[k] instanceof AsyncFunction
-      ? (actions[name + "." + k] = (s: any, p = undefined) => reducers[k](s[name], p))
-      : (mutations[name + "." + k] = (s: any, p = undefined) => reducers[k](s[name], p));
+    const func = (s: any, p = undefined) => reducers[k](s[name], p);
+    reducers[k] instanceof AsyncFunction ? (actions[name + "." + k] = func) : (mutations[name + "." + k] = func);
   }
 
   return { name, state, mutations, actions };

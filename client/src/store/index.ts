@@ -1,5 +1,5 @@
 import createStore from "./core";
-import userSlice, { User } from "./userSlice";
+import userSlice, { User } from "./slices/userSlice";
 
 export interface State {
   user: User;

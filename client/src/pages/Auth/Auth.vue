@@ -44,14 +44,23 @@ export default {
         })
         .then(({ data }) => {
           this.serverError = "";
-          console.log(data);
+
+          this.$store.commit("user.setUser", data.data);
+          this.$router.push("/profile");
         })
-        .catch(({ response }) => {
-          this.serverError = response.data.message;
+        .catch(e => {
+          if (e.response) this.serverError = e.response.data.message;
+          else console.log(e);
         });
     },
   },
-  beforeMount() {
+  mounted() {
+    const redirect = () => {
+      if (this.$store.state.user.loaded) {
+        if (this.$store.state.user.id) this.$router.push("/profile");
+      } else setTimeout(redirect, 100);
+    };
+    redirect();
     this.getAction();
     const email = (this.$route.query.email || "") as string;
     email && (this.user.email.value = email);

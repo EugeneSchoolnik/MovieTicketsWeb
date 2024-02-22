@@ -72,6 +72,18 @@
         color: $danger;
       }
     }
+    .serverError {
+      display: block;
+      width: 100%;
+      height: calc(1rem + 10px);
+      background: $darkGray;
+      color: $danger;
+      padding: 4px;
+      text-align: center;
+      &:empty {
+        background: none;
+      }
+    }
     button {
       width: 100%;
       margin: 0.5rem;

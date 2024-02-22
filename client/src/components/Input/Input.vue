@@ -34,7 +34,8 @@ export default {
   methods: {
     handleInput(event: Event) {
       if (this.type == "file") {
-        this.$emit("update:modelValue", (event.target as HTMLInputElement).files);
+        const files = (event.target as HTMLInputElement).files;
+        this.$emit("update:modelValue", files ? files[0] : null);
         return;
       }
       this.$emit("update:modelValue", (event.target as HTMLInputElement).value);

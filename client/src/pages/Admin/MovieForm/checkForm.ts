@@ -75,12 +75,12 @@ const checkForm = (form: form): boolean => {
         if (period < 3 || period > 7) item.error = errors.outOfRange(3, 7);
         break;
       case "banner":
-        if (!item.value[0]) {
+        if (!item.value) {
           item.error = "Pick an image";
           break;
         }
         const allowed = ["jpg", "png", "svg"];
-        const extension: string = item.value[0].name.split(".").pop();
+        const extension: string = (item.value as any).name.split(".").pop();
         if (!allowed.includes(extension)) item.error = errors.fileExtension(allowed);
         break;
     }

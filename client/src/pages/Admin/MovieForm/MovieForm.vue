@@ -4,9 +4,11 @@ import { genres } from "./genres";
 import type { form } from "./checkForm";
 import Input from "../../../components/Input/Input.vue";
 import checkForm from "./checkForm";
+import server from "../../../utils/axiosInstance";
 
 type data = {
   s: CSSModuleClasses;
+  serverError: string;
   form: form;
   genres: string[];
 };
@@ -17,6 +19,7 @@ export default {
   data() {
     return {
       s,
+      serverError: "",
       form: {
         title: {
           value: "",
@@ -60,7 +63,20 @@ export default {
   },
   methods: {
     onSubmit() {
-      if (checkForm(this.form)) console.log("Send form");
+      this.serverError = "";
+      if (!checkForm(this.form)) return;
+
+      const data = new FormData();
+      Object.keys(this.form).forEach(k => data.append(k, this.form[k].value));
+
+      server
+        .post("/movies/new", data)
+        .then(res => console.log(res))
+        .catch(e => {
+          if (e.response) {
+            return (this.serverError = `Intersecting with these movies: ${e.response.data.message.join(", ")}`);
+          }
+        });
     },
   },
 };
@@ -85,6 +101,7 @@ export default {
       <Input v-model="form.date.value" type="date" label="Date" :error="form.date.error" />
       <Input v-model="form.period.value" type="number" label="Period (days)" :error="form.period.error" />
       <Input v-model="form.banner.value" type="file" label="Banner" :error="form.banner.error" />
+      <span :class="s.serverError">{{ serverError }}</span>
       <button class="btn">Confirm</button>
     </form>
   </div>

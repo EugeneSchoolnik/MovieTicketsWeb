@@ -41,7 +41,7 @@ export const getCurrentMovies: Handler = async (req, res) => {
   });
   if (expired.length) {
     const idArr = expired.map(i => i.id);
-    db.query(`DELETE FROM movies WHERE id IN ('${idArr.join("','")}')`);
+    // db.query(`DELETE FROM movies WHERE id IN ('${idArr.join("','")}')`);
     movies = movies.filter(i => !idArr.includes(i.id));
   }
   const date = Date.parse(new Date().toISOString().split("T")[0]);

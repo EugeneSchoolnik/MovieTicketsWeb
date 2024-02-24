@@ -7,6 +7,7 @@ import { join } from "path";
 import authRoute from "./src/routes/auth";
 import moviesRoute from "./src/routes/movies";
 import adminRoute from "./src/routes/admin";
+import ordersRoute from "./src/routes/orders";
 
 dotenv.config();
 
@@ -27,6 +28,7 @@ app.use(cookieParser());
 app.use("/auth", authRoute);
 app.use("/movies", moviesRoute);
 app.use("/admin", adminRoute);
+app.use("/orders", ordersRoute);
 
 app.listen(port, () => {
   console.log(`Server is listening at port ${port}`);

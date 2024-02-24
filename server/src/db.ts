@@ -38,4 +38,14 @@ CREATE TABLE `movies` (
   `banner` varchar(64) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
+table orders
+CREATE TABLE `orders` (
+  `id` varchar(8) NOT NULL,
+  `userId` varchar(8) NOT NULL,
+  `movieId` varchar(8) NOT NULL,
+  `date` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+ALTER TABLE `orders`
+  ADD PRIMARY KEY (`id`);
+COMMIT;
 */

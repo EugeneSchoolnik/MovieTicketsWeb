@@ -6,6 +6,7 @@ import fileUpload from "express-fileupload";
 import { join } from "path";
 import authRoute from "./src/routes/auth";
 import moviesRoute from "./src/routes/movies";
+import adminRoute from "./src/routes/admin";
 
 dotenv.config();
 
@@ -25,6 +26,7 @@ app.use(cookieParser());
 
 app.use("/auth", authRoute);
 app.use("/movies", moviesRoute);
+app.use("/admin", adminRoute);
 
 app.listen(port, () => {
   console.log(`Server is listening at port ${port}`);

@@ -50,6 +50,8 @@ export const getCurrentMovies: Handler = async (req, res) => {
   res.json(resp(true, movies));
 };
 
+export const getAllMovies: Handler = async (req, res) => res.json(resp(true, await getMovies()));
+
 const getMovies = async () => {
   return (await db.query("SELECT * FROM movies"))[0] as any;
 };
@@ -57,7 +59,13 @@ const getMovies = async () => {
 const parseTime = (time: string) =>
   time.split(":").reduce((acc, i, ind) => acc + Number(i) * 60 * 1000 * (ind ? 1 : 60), 0);
 
-const checkIntersection = async (timeStr: string, duration: number, dateStr: string, period: number) => {
+export const checkIntersection = async (
+  timeStr: string,
+  duration: number,
+  dateStr: string,
+  period: number,
+  updateId?: string
+) => {
   const date = Date.parse(dateStr);
   const endDate = date + period * 24 * 60 * 60 * 1000;
   const time = parseTime(timeStr);
@@ -67,6 +75,7 @@ const checkIntersection = async (timeStr: string, duration: number, dateStr: str
   movies.forEach(i => ((i.date = Date.parse(i.date)), (i.time = parseTime(i.time))));
 
   const intersection = movies.filter(i => {
+    if (i.id == updateId) return false;
     let start = Math.max(date, i.date);
     let end = Math.min(endDate, i.date + i.period * 24 * 60 * 60 * 1000);
 

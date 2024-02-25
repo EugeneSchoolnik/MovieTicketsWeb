@@ -121,6 +121,17 @@
         margin-top: 2rem;
         width: 100%;
       }
+      .serverError {
+        display: block;
+        height: calc(1rem + 10px);
+        background: $darkGray;
+        color: $danger;
+        padding: 4px;
+        text-align: center;
+        &:empty {
+          background: none;
+        }
+      }
     }
     &.detailsPopup {
       padding: 1rem;

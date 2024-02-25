@@ -1,9 +1,9 @@
-import { Movie } from "../../../components/MovieItem/movie";
+import { movie as Movie } from "./../../../store/slices/moviesSlice";
 
-type movie = Omit<Movie, "id" | "price" | "duration" | "banner"> & {
+type movie = Omit<Movie, "id" | "price" | "genres" | "duration" | "period" | "banner"> & {
   price: string;
+  genres: string[];
   duration: string;
-  date: string;
   period: string;
   banner: object;
 };
@@ -27,7 +27,7 @@ export const errors = {
   },
 };
 
-const checkForm = (form: form): boolean => {
+const checkForm = (form: form, isEdit: boolean = false): boolean => {
   let checked = true;
   for (let i of Object.keys(form)) {
     const k = i as keyof form;
@@ -65,6 +65,7 @@ const checkForm = (form: form): boolean => {
           item.error = "Enter the date";
           break;
         }
+        if (isEdit) break;
         const inputDate = new Date(item.value as string);
         const currentDate = new Date();
         currentDate.setHours(23, 59, 59, 999);
@@ -75,7 +76,8 @@ const checkForm = (form: form): boolean => {
         if (period < 3 || period > 7) item.error = errors.outOfRange(3, 7);
         break;
       case "banner":
-        if (!item.value) {
+        if (isEdit) break;
+        if (!(item.value as any).name) {
           item.error = "Pick an image";
           break;
         }

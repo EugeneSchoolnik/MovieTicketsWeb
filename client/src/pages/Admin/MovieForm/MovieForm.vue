@@ -11,6 +11,7 @@ type data = {
   serverError: string;
   form: form;
   genres: string[];
+  edit: boolean;
 };
 
 export default {
@@ -59,25 +60,56 @@ export default {
         },
       },
       genres,
+      edit: false,
     } as data;
   },
   methods: {
     onSubmit() {
       this.serverError = "";
-      if (!checkForm(this.form)) return;
+      if (!checkForm(this.form, this.edit)) return;
 
       const data = new FormData();
       Object.keys(this.form).forEach(k => data.append(k, this.form[k].value));
 
+      if (this.edit) {
+        server
+          .post(`/admin/edit?id=${this.$route.query.id}`, data)
+          .then(() => this.$router.push("/admin"))
+          .catch(e => {
+            if (e.response) {
+              return (this.serverError = `Intersecting with these movies: ${e.response.data.message.join(", ")}`);
+            }
+          });
+        return;
+      }
+
       server
         .post("/movies/new", data)
-        .then(res => console.log(res))
+        .then(() => this.$router.push("/admin"))
         .catch(e => {
           if (e.response) {
             return (this.serverError = `Intersecting with these movies: ${e.response.data.message.join(", ")}`);
           }
         });
     },
+  },
+  beforeMount() {
+    this.edit = this.$route.path == "/admin/edit";
+    if (this.edit) {
+      const movie = this.$store.state.movies.admin.find(i => i.id == this.$route.query.id);
+      if (!movie) return this.$router.go(-1);
+      Object.keys(this.form).forEach(k => {
+        switch (k) {
+          case "genres":
+            this.form[k].value = movie.genres.split(",");
+            break;
+          case "banner":
+            break;
+          default:
+            this.form[k].value = movie[k];
+        }
+      });
+    }
   },
 };
 </script>
@@ -86,20 +118,46 @@ export default {
     <i :class="`fa-solid fa-arrow-left ${s.back}`" @click="$router.go(-1)"></i>
     <h1>new movie</h1>
     <form @submit.prevent="onSubmit">
-      <Input v-model="form.title.value" label="Title" :error="form.title.error" />
-      <Input v-model="form.price.value" label="Price" type="number" :error="form.price.error" />
+      <Input :value="form.title.value" v-model="form.title.value" label="Title" :error="form.title.error" />
+      <Input
+        :value="form.price.value"
+        v-model="form.price.value"
+        label="Price"
+        type="number"
+        :error="form.price.error"
+      />
       <label>
         Genres
         <select v-model="form.genres.value" multiple>
-          <option v-for="i of genres" :value="i.toLowerCase()">{{ i }}</option>
+          <option v-for="i of genres" :key="i">
+            {{ i }}
+          </option>
         </select>
         <span>{{ form.genres.error }}</span>
       </label>
-      <Input v-model="form.storyline.value" isTextarea label="Storyline" :error="form.storyline.error" />
-      <Input v-model="form.time.value" type="time" label="Time" :error="form.time.error" />
-      <Input v-model="form.duration.value" type="number" label="Duration" :error="form.duration.error" />
-      <Input v-model="form.date.value" type="date" label="Date" :error="form.date.error" />
-      <Input v-model="form.period.value" type="number" label="Period (days)" :error="form.period.error" />
+      <Input
+        :value="form.storyline.value"
+        v-model="form.storyline.value"
+        isTextarea
+        label="Storyline"
+        :error="form.storyline.error"
+      />
+      <Input :value="form.time.value" v-model="form.time.value" type="time" label="Time" :error="form.time.error" />
+      <Input
+        :value="form.duration.value"
+        v-model="form.duration.value"
+        type="number"
+        label="Duration"
+        :error="form.duration.error"
+      />
+      <Input :value="form.date.value" v-model="form.date.value" type="date" label="Date" :error="form.date.error" />
+      <Input
+        :value="form.period.value"
+        v-model="form.period.value"
+        type="number"
+        label="Period (days)"
+        :error="form.period.error"
+      />
       <Input v-model="form.banner.value" type="file" label="Banner" :error="form.banner.error" />
       <span :class="s.serverError">{{ serverError }}</span>
       <button class="btn">Confirm</button>

@@ -22,6 +22,14 @@ export default {
         this.$store.commit("user.loaded");
         console.log(e);
       });
+    server.get("/movies/current").then(({ data }) => {
+      this.$store.commit("movies.set", data.data);
+      setInterval(() => this.$store.commit("movies.checkExpired"), 150_000);
+    });
+    server.get("/movies/all").then(({ data }) => {
+      this.$store.commit("movies.setAdmin", data.data);
+    });
+    this.$store.commit("orders.getOrders");
   },
 };
 </script>

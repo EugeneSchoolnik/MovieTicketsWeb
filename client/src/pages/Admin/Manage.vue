@@ -1,6 +1,7 @@
 <script lang="ts">
 import s from "./manage.module.scss";
 import MovieItem from "../../components/MovieItem/MovieItem.vue";
+import { serverURL } from "../../utils/axiosInstance";
 
 export default {
   name: "admin.manage",
@@ -8,6 +9,7 @@ export default {
   data() {
     return {
       s,
+      serverURL,
     };
   },
 };
@@ -18,18 +20,17 @@ export default {
     <div :class="s.list">
       <MovieItem
         :movie="{
-          id: '0140149124',
-          title: 'Avangers 3',
-          duration: '120',
-          genres: ['fantasy', 'action'],
-          time: '02:00pm',
-          price: '4',
-          banner:
-            'https://c4.wallpaperflare.com/wallpaper/361/823/829/avengers-endgame-iron-man-robert-downey-jr-captain-america-chris-evans-hd-wallpaper-preview.jpg',
+          id: i.id,
+          title: i.title,
+          duration: i.duration,
+          genres: i.genres,
+          time: i.time,
+          price: i.price.toFixed(2),
+          banner: `${serverURL}/${i.banner}`,
         }"
+        v-for="i of $store.state.movies.admin"
+        :key="i.id"
         :admin="true"
-        v-for="(_, i) of Array.from({ length: 8 })"
-        :key="i"
       />
     </div>
   </div>

@@ -46,6 +46,7 @@ export default {
           this.serverError = "";
 
           this.$store.commit("user.setUser", data.data);
+          this.$store.commit("orders.getOrders");
           this.$router.push("/profile");
         })
         .catch(e => {
@@ -76,7 +77,7 @@ export default {
     <h1>{{ isLogin ? "Authorization" : "Registration" }}</h1>
     <form @submit.prevent="onSumbit">
       <Input label="Email" v-model="user.email.value" :value="user.email.value" :error="user.email.error" />
-      <Input label="Password" v-model="user.password.value" :error="user.password.error" />
+      <Input label="Password" type="password" v-model="user.password.value" :error="user.password.error" />
       <span :class="s.serverError">{{ serverError }}</span>
       <button class="btn">{{ isLogin ? "Log in" : "Register" }}</button>
       <p v-if="isLogin">

@@ -20,7 +20,9 @@ export default {
 </script>
 <template>
   <header :class="s.header">
-    <RouterLink to="/login" :class="`${s.loginLink} btn`">{{ $store.state.user.id ? "Profile" : "Log in" }}</RouterLink>
+    <RouterLink :to="$store.state.user.id === '' ? '/login' : '/profile'" :class="`${s.loginLink} btn`">{{
+      $store.state.user.id ? "Profile" : "Log in"
+    }}</RouterLink>
     <RouterLink to="/" :class="s.title">
       <img src="../../assets/img/logo.jpg" alt="logo" />
       <h1>FilmFlicks</h1>

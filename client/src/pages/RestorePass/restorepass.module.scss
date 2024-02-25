@@ -23,6 +23,17 @@
   }
   form {
     width: 280px;
+    .serverError {
+      display: block;
+      height: calc(1rem + 10px);
+      background: $darkGray;
+      color: $danger;
+      padding: 4px;
+      text-align: center;
+      &:empty {
+        background: none;
+      }
+    }
     button {
       width: 100%;
       margin: 1rem 0;

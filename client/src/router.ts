@@ -18,6 +18,7 @@ const router = createRouter({
     { path: "/movies", component: Movies },
     { path: "/admin", component: Manage },
     { path: "/admin/new", component: MovieForm },
+    { path: "/admin/edit", component: MovieForm },
   ],
 });
 

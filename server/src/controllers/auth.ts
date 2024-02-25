@@ -6,7 +6,7 @@ import db from "../db";
 import { resp } from "../utils/resp";
 import { checkToken, genToken } from "../utils/authToken";
 
-function setToken(data: any[], res: Response) {
+export function setToken(data: any[], res: Response) {
   res.cookie("authorization", genToken(data, "7d"), { httpOnly: true, maxAge: 7 * 24 * 60 * 60 * 1000 });
 }
 // LOGIN
@@ -59,7 +59,7 @@ export const auth: Handler = async (req, res, next) => {
     if (expired) return res.status(401).json(resp(false, "The token expired"));
 
     const hash = (await db.execute("SELECT password FROM users WHERE id = ?", [data[0]]))[0][0].password;
-    if (hash !== data[1]) res.status(401).json(resp(false, "Incorrect token"));
+    if (hash !== data[1]) return res.status(401).json(resp(false, "Incorrect token"));
 
     req.userId = data[0];
     next();

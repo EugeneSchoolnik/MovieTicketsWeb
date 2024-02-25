@@ -22,8 +22,7 @@ export default {
     <div :class="s.callToAction">
       <h2>Ready to dive into a world of cinematic wonder? Hop&nbsp;on!</h2>
       <div :class="s.btns">
-        <button class="btn primary">Buy Tickets Now</button>
-        <RouterLink class="btn" to="/movies">Browse Movies</RouterLink>
+        <RouterLink class="btn primary" to="/movies">Browse Movies</RouterLink>
       </div>
     </div>
     <div :class="s.benefits">

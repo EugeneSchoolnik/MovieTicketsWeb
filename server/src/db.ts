@@ -12,7 +12,8 @@ const db = mysql.createPool({
 
 export default db;
 
-/* table users
+/*
+table users
 CREATE TABLE `users` (
   `id` varchar(8) NOT NULL,
   `email` varchar(100) NOT NULL,
@@ -20,6 +21,31 @@ CREATE TABLE `users` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
 ALTER TABLE `users`
+  ADD PRIMARY KEY (`id`);
+COMMIT;
+
+table movies
+CREATE TABLE `movies` (
+  `id` varchar(8) NOT NULL,
+  `title` varchar(32) NOT NULL,
+  `genres` varchar(64) NOT NULL,
+  `storyline` text NOT NULL,
+  `price` float NOT NULL,
+  `time` varchar(5) NOT NULL,
+  `date` varchar(10) NOT NULL,
+  `duration` int NOT NULL,
+  `period` int NOT NULL,
+  `banner` varchar(64) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+
+table orders
+CREATE TABLE `orders` (
+  `id` varchar(8) NOT NULL,
+  `userId` varchar(8) NOT NULL,
+  `movieId` varchar(8) NOT NULL,
+  `date` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+ALTER TABLE `orders`
   ADD PRIMARY KEY (`id`);
 COMMIT;
 */

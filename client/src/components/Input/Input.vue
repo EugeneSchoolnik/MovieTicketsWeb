@@ -29,15 +29,20 @@ export default {
   data() {
     return {
       inputValue: this.value,
+      typeState: this.type == "password",
     };
   },
   methods: {
     handleInput(event: Event) {
       if (this.type == "file") {
-        this.$emit("update:modelValue", (event.target as HTMLInputElement).files);
+        const files = (event.target as HTMLInputElement).files;
+        this.$emit("update:modelValue", files ? files[0] : null);
         return;
       }
       this.$emit("update:modelValue", (event.target as HTMLInputElement).value);
+    },
+    togglePassword() {
+      this.typeState = !this.typeState;
     },
   },
 };
@@ -58,15 +63,17 @@ export default {
       :class="error ? 'error' : ''"
       v-else
       v-model="inputValue"
-      :type="type"
+      :type="type != 'password' ? type : typeState ? type : 'text'"
       :placeholder="placeholder"
       @input="handleInput"
     />
+    <i v-if="type == 'password'" :class="`fa-solid fa-eye${typeState ? '-slash' : ''}`" @click="togglePassword"></i>
     <span>{{ error }}</span>
   </label>
 </template>
 <style lang="scss" scoped>
 label {
+  position: relative;
   display: flex;
   flex-direction: column;
   width: 280px;
@@ -93,6 +100,12 @@ label {
     &[type="date"] {
       height: calc(1.3rem + 10px);
     }
+  }
+  i {
+    position: absolute;
+    right: 4px;
+    top: calc(20px + 1rem);
+    transform: translateY(-50%);
   }
   textarea {
     width: 100%;

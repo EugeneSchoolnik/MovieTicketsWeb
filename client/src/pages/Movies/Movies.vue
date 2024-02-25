@@ -3,6 +3,8 @@ import s from "./movies.module.scss";
 import Header from "../../components/Header/Header.vue";
 import MovieItem from "../../components/MovieItem/MovieItem.vue";
 import BuyTicket from "./BuyTicket.vue";
+import { movie } from "../../store/slices/moviesSlice";
+import { serverURL } from "../../utils/axiosInstance";
 
 export default {
   name: "movies",
@@ -10,7 +12,8 @@ export default {
   data() {
     return {
       s,
-      movie: null as any | null,
+      serverURL,
+      currentMovie: null as null | movie,
     };
   },
 };
@@ -20,20 +23,20 @@ export default {
   <div :class="s.movies">
     <MovieItem
       :movie="{
-        id: '0140149124',
-        title: 'Avangers 3',
-        duration: '120',
-        genres: ['fantasy', 'action'],
-        time: '02:00pm',
-        price: '4',
-        banner:
-          'https://c4.wallpaperflare.com/wallpaper/361/823/829/avengers-endgame-iron-man-robert-downey-jr-captain-america-chris-evans-hd-wallpaper-preview.jpg',
+        id: i.id,
+        title: i.title,
+        duration: i.duration,
+        genres: i.genres.replace(/,/g, ', '),
+        time: i.time,
+        price: i.price.toFixed(2),
+        banner: `${serverURL}/${i.banner}`,
       }"
-      v-for="(_, i) of Array.from({ length: 8 })"
-      :key="i"
-      @click="movie = {}"
+      v-for="i of $store.state.movies.movies"
+      :key="i.id"
+      @click="currentMovie = i"
     />
-    <BuyTicket :movie="movie" @closePopup="movie = null" />
+    <p :class="s.empty" v-if="!$store.state.movies.movies.length">There are no more movies today</p>
+    <BuyTicket :movie="(currentMovie as any)" @closePopup="currentMovie = null" />
   </div>
 </template>
 <style src="./movies.module.scss" lang="scss"></style>

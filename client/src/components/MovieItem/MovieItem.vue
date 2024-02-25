@@ -1,6 +1,7 @@
 <script lang="ts">
+import { movie } from "../../store/slices/moviesSlice";
+import server from "../../utils/axiosInstance";
 import s from "./movieItem.module.scss";
-import { Movie } from "./movie";
 
 export default {
   name: "movieItem",
@@ -17,8 +18,13 @@ export default {
   data() {
     return {
       s,
-      movie: this.movie as Movie,
+      movie: this.movie as movie,
     };
+  },
+  methods: {
+    deleteMovie(id: string) {
+      server.post(`/admin/delete?id=${id}`).then(() => location.reload());
+    },
   },
 };
 </script>
@@ -27,7 +33,7 @@ export default {
     <div :class="s.info">
       <h2>{{ movie.title }}</h2>
       <span>{{ movie.duration }}m</span>
-      <strong>{{ movie.genres.join(", ") }}</strong>
+      <strong>{{ movie.genres }}</strong>
     </div>
     <img :src="movie.banner" alt="img" />
     <span :class="s.details"
@@ -35,7 +41,7 @@ export default {
     >
     <div v-if="admin" :class="s.adminBlock">
       <RouterLink :to="`/admin/edit?id=${movie.id}`"><i class="fa-solid fa-pen-to-square"></i></RouterLink>
-      <i class="fa-solid fa-trash"></i>
+      <i class="fa-solid fa-trash" @click="deleteMovie(movie.id)"></i>
     </div>
   </div>
 </template>

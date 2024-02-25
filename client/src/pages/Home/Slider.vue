@@ -2,6 +2,7 @@
 import s from "./home.module.scss";
 import { Splide, SplideSlide } from "@splidejs/vue-splide";
 import "@splidejs/vue-splide/css";
+import { serverURL } from "../../utils/axiosInstance";
 
 const options = {
   type: "loop",
@@ -17,7 +18,15 @@ export default {
     return {
       s,
       options,
+      serverURL,
     };
+  },
+  computed: {
+    novelties() {
+      if (this.$store.state.movies.movies.length < 3) return [];
+      const length = Math.min(this.$store.state.movies.movies.length, 5);
+      return this.$store.state.movies.movies.slice(-1 * length);
+    },
   },
   mounted() {
     const countSlides = () => {
@@ -31,31 +40,14 @@ export default {
 };
 </script>
 <template>
-  <div :class="s.sliderWrapper">
+  <div :class="s.sliderWrapper" v-if="novelties.length">
     <h2>Novelties</h2>
     <Splide :class="s.slider" :options="options">
-      <SplideSlide>
+      <SplideSlide v-for="i of novelties">
         <div
-          style="
-            --image: url('https://c4.wallpaperflare.com/wallpaper/361/823/829/avengers-endgame-iron-man-robert-downey-jr-captain-america-chris-evans-hd-wallpaper-preview.jpg');
-          "
-        ></div>
-      </SplideSlide>
-      <SplideSlide>
-        <div
-          style="
-            --image: url('https://c4.wallpaperflare.com/wallpaper/1022/525/87/movies-the-lord-of-the-rings-aragorn-viggo-mortensen-movie-posters-posters-the-return-of-the-king-entertainment-movies-hd-art-wallpaper-preview.jpg');
-          "
-        ></div>
-      </SplideSlide>
-      <SplideSlide>
-        <div style="--image: url('https://image.tmdb.org/t/p/original/gEAqkpAAcL44uSg6LwO3NpIOALt.jpg')"></div>
-      </SplideSlide>
-      <SplideSlide>
-        <div
-          style="
-            --image: url('https://assets-global.website-files.com/6009ec8cda7f305645c9d91b/6408f676b5811234c887ca62_top%20gun%20maverick-min.png');
-          "
+          :style="`
+            --image: url('${serverURL}/${i.banner}');
+          `"
         ></div>
       </SplideSlide>
     </Splide>

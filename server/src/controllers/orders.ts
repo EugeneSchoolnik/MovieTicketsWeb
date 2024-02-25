@@ -64,7 +64,6 @@ export const checkOrder: Handler = async (req, res) => {
 
 export const qrcode: Handler = (req, res) => {
   const url = req.query.url as string | undefined;
-  console.log(url);
 
   if (!url) return res.send();
 
